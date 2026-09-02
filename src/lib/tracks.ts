@@ -58,7 +58,7 @@ export const TRACKS: Track[] = [
     id: "05",
     title: "No Cap",
     artist: "KR$NA",
-    youtubeId: "j4d0HZz5CTk",
+    youtubeId: "PejQbGZraqg",
     year: 2021,
     city: "Delhi",
   },

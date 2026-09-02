@@ -45,6 +45,18 @@ uploads (DIVINE, Naezy, Seedhe Maut, KR$NA, Raftaar, Prabh Deep, MC Stan, Emiway
 Brodha V) — worth spot-checking, since channels re-upload and rename. If YouTube
 refuses to embed one, the player marks it and skips to the next.
 
+`WISHLIST` in the same file holds songs that still need a verified id; they show
+on `/tracks` under **On the shortlist**. Move one up into `TRACKS` with its id to
+promote it.
+
+## Contributing
+
+PRs welcome — mostly for new tracks, but fixes and polish too. The short version:
+find the **official** upload, check `youtube.com/embed/<id>` isn't blocked, add
+the entry to `TRACKS`, run `npm run build`, open a PR. Full guide and house rules
+in [`CONTRIBUTING.md`](CONTRIBUTING.md). Just want to suggest a song? [Open an
+issue](https://github.com/VaibhavRawat27/DHH/issues/new?labels=track&title=Track%3A%20).
+
 ## Layout
 
 ```
@@ -64,7 +76,7 @@ src/
     TrackList.tsx        clickable tracklist
     SiteHeader.tsx       nav
   lib/
-    tracks.ts            the crate — edit this
+    tracks.ts            the crate (TRACKS) + the shortlist (WISHLIST) — edit this
 ```
 
 ## How "music keeps playing" works

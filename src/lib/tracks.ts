@@ -9,6 +9,9 @@ export type Track = {
   note?: string;
 };
 
+/** A song we want in the crate but haven't sourced a clean embeddable id for. */
+export type WishlistTrack = Omit<Track, "id" | "youtubeId">;
+
 /**
  * The crate. This is the running order for the rooftop boombox.
  *
@@ -100,4 +103,30 @@ export const TRACKS: Track[] = [
     year: 2014,
     city: "Bengaluru",
   },
+];
+
+/**
+ * The shortlist — tracks that belong on the rooftop but still need a verified,
+ * embeddable YouTube id before they can join TRACKS above.
+ *
+ * Want to add one? Grab the id from the official upload
+ * (youtube.com/watch?v=XXXXXXXXXXX -> "XXXXXXXXXXX"), move the entry into
+ * TRACKS with the next `id`, and open a PR. See CONTRIBUTING.md.
+ */
+export const WISHLIST: WishlistTrack[] = [
+  { title: "Kaam 25", artist: "DIVINE", year: 2019, city: "Mumbai", note: "Gully Boy." },
+  { title: "Azadi", artist: "DIVINE feat. Dub Sharma", year: 2019, city: "Mumbai" },
+  { title: "Jungli Sher", artist: "DIVINE", year: 2016, city: "Mumbai" },
+  { title: "Khatta Flow", artist: "Seedhe Maut", year: 2020, city: "Delhi" },
+  { title: "Nanchaku", artist: "Seedhe Maut x Yashraj", year: 2023, city: "Delhi" },
+  { title: "Namumkin", artist: "Seedhe Maut", year: 2019, city: "Delhi" },
+  { title: "Saza-E-Maut", artist: "KR$NA", year: 2020, city: "Delhi" },
+  { title: "Vyanjan", artist: "KR$NA", year: 2023, city: "Delhi" },
+  { title: "Farak", artist: "MC Stan", year: 2019, city: "Pune" },
+  { title: "Astronaut", artist: "MC Stan", year: 2021, city: "Pune" },
+  { title: "Sheikh Chilli", artist: "Prabh Deep", year: 2019, city: "Delhi" },
+  { title: "Suffocation", artist: "Prabh Deep", year: 2017, city: "Delhi" },
+  { title: "Aukaat", artist: "Emiway Bantai", year: 2020, city: "Mumbai" },
+  { title: "Aatma Raama", artist: "Brodha V", year: 2018, city: "Bengaluru" },
+  { title: "Aafat!", artist: "Naezy", year: 2014, city: "Mumbai", note: "The blueprint." },
 ];

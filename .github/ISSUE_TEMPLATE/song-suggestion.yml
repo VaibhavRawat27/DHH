@@ -1,0 +1,46 @@
+name: Song suggestion
+description: Suggest a rap for the crate
+title: "Track: "
+labels: ["track"]
+body:
+  - type: input
+    id: title
+    attributes:
+      label: Title
+    validations:
+      required: true
+  - type: input
+    id: artist
+    attributes:
+      label: Artist
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: YouTube link (official upload)
+      placeholder: https://www.youtube.com/watch?v=...
+    validations:
+      required: true
+  - type: input
+    id: meta
+    attributes:
+      label: Year / city
+      placeholder: 2019 / Mumbai
+    validations:
+      required: false
+  - type: textarea
+    id: why
+    attributes:
+      label: Why it belongs on the rooftop
+    validations:
+      required: false
+  - type: checkboxes
+    id: rules
+    attributes:
+      label: House rules
+      options:
+        - label: It's a rap (Desi hip hop), not a film or pop song
+          required: true
+        - label: The link is an official upload, not a re-upload
+          required: true

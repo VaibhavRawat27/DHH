@@ -1,19 +1,15 @@
 "use client";
 
 import { usePlayer } from "@/components/PlayerProvider";
-import { VoteButton } from "@/components/VoteButton";
 
 export function NowPlayingCard() {
   const p = usePlayer();
 
   return (
     <div className="glass rounded-2xl p-5">
-      <div className="flex items-center justify-between gap-3">
-        <p className="text-[10px] uppercase tracking-[0.28em] text-muted">
-          {p.isPlaying ? "▶ now spinning" : "cued up"}
-        </p>
-        <VoteButton id={p.current.id} />
-      </div>
+      <p className="text-[10px] uppercase tracking-[0.28em] text-muted">
+        {p.isPlaying ? "▶ now spinning" : "Up next"}
+      </p>
 
       <p className="display mt-3 truncate text-2xl text-cream">
         {p.current.title}

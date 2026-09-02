@@ -11,7 +11,7 @@ export default function TracksPage() {
     <div className="space-y-6">
       <header>
         <h1 className="display text-4xl text-cream">The Crate</h1>
-        <p className="mt-2 text-sm text-muted">Tap a line to play. ▲ to upvote.</p>
+        <p className="mt-2 text-sm text-muted">Tap a line to play.</p>
       </header>
 
       <TrackList />

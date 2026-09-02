@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Clock } from "@/components/Clock";
+import { LiveCount } from "@/components/LiveCount";
 
 const NAV = [
   { href: "/", label: "Rooftop" },
@@ -21,14 +22,15 @@ export function SiteHeader() {
             <span className="grid h-10 w-10 place-items-center rounded-md border border-ember/50 bg-black/40">
               <span className="display text-sm text-ember">DHH</span>
             </span>
-            <span className="display text-lg leading-none text-cream">
+            {/* <span className="display text-lg leading-none text-cream">
               Desi Hip Hop
-            </span>
+            </span> */}
           </Link>
           <span className="hidden h-7 w-px shrink-0 bg-line sm:block" />
           <span className="hidden shrink-0 sm:inline-flex">
             <Clock />
           </span>
+          <LiveCount />
         </div>
 
         <nav className="flex items-center gap-1 text-sm">

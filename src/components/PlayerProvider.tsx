@@ -88,10 +88,6 @@ type PlayerState = {
   seek: (fraction: number) => void;
   setVolume: (v: number) => void;
   setVideoOpen: (open: boolean) => void;
-  /** upvote count per track id (this viewer's local tally) */
-  votes: Record<string, number>;
-  hasVoted: (id: string) => boolean;
-  toggleVote: (id: string) => void;
 };
 
 const PlayerContext = createContext<PlayerState | null>(null);
@@ -117,30 +113,9 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
   const [volume, setVolumeState] = useState(0.8);
   const [videoOpen, setVideoOpen] = useState(false);
   const [broken, setBroken] = useState<Set<string>>(new Set());
-  const [votes, setVotes] = useState<Record<string, number>>({});
-  const [myVotes, setMyVotes] = useState<Set<string>>(new Set());
 
   indexRef.current = index;
   const current = TRACKS[index];
-
-  const myVotesRef = useRef(myVotes);
-  myVotesRef.current = myVotes;
-
-  const hasVoted = useCallback((id: string) => myVotes.has(id), [myVotes]);
-
-  const toggleVote = useCallback((id: string) => {
-    const removing = myVotesRef.current.has(id);
-    setMyVotes((prev) => {
-      const next = new Set(prev);
-      if (removing) next.delete(id);
-      else next.add(id);
-      return next;
-    });
-    setVotes((prev) => ({
-      ...prev,
-      [id]: Math.max(0, (prev[id] ?? 0) + (removing ? -1 : 1)),
-    }));
-  }, []);
 
   const goTo = useCallback((next: number, autoplay: boolean) => {
     const clamped = (next + TRACKS.length) % TRACKS.length;
@@ -248,29 +223,6 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Load / persist this viewer's upvotes.
-  const votesLoaded = useRef(false);
-  useEffect(() => {
-    try {
-      const v = JSON.parse(localStorage.getItem("dhh:votes") || "{}");
-      const m = JSON.parse(localStorage.getItem("dhh:myVotes") || "[]");
-      if (v && typeof v === "object") setVotes(v);
-      if (Array.isArray(m)) setMyVotes(new Set(m));
-    } catch {
-      /* private mode / disabled storage — start empty */
-    }
-    votesLoaded.current = true;
-  }, []);
-  useEffect(() => {
-    if (!votesLoaded.current) return;
-    try {
-      localStorage.setItem("dhh:votes", JSON.stringify(votes));
-      localStorage.setItem("dhh:myVotes", JSON.stringify([...myVotes]));
-    } catch {
-      /* ignore */
-    }
-  }, [votes, myVotes]);
-
   // Flag the document so the still background image fades out behind the video.
   useEffect(() => {
     document.body.dataset.video = videoOpen ? "on" : "off";
@@ -313,9 +265,6 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
       seek,
       setVolume,
       setVideoOpen,
-      votes,
-      hasVoted,
-      toggleVote,
     }),
     [
       current,
@@ -335,9 +284,6 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
       prev,
       seek,
       setVolume,
-      votes,
-      hasVoted,
-      toggleVote,
     ],
   );
 

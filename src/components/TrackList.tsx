@@ -1,7 +1,6 @@
 "use client";
 
 import { usePlayer } from "@/components/PlayerProvider";
-import { VoteButton } from "@/components/VoteButton";
 
 export function TrackList() {
   const p = usePlayer();
@@ -50,8 +49,6 @@ export function TrackList() {
                 </span>
               </span>
             </button>
-
-            <VoteButton id={track.id} />
           </li>
         );
       })}

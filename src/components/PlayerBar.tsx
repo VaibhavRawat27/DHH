@@ -1,7 +1,6 @@
 "use client";
 
 import { usePlayer } from "@/components/PlayerProvider";
-import { VoteButton } from "@/components/VoteButton";
 
 function Equalizer({ active }: { active: boolean }) {
   return (
@@ -77,11 +76,8 @@ export function PlayerBar() {
                 </span>
               )}
             </p>
-            <div className="flex shrink-0 items-center gap-3">
-              <div className="hidden sm:block">
-                <Equalizer active={p.isPlaying} />
-              </div>
-              <VoteButton id={p.current.id} size="sm" />
+            <div className="hidden shrink-0 sm:block">
+              <Equalizer active={p.isPlaying} />
             </div>
           </div>
 

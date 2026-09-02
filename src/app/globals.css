@@ -1,0 +1,155 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ *
+ *  DHH — Desi Hip Hop. Rooftop at golden hour, boombox always on.
+ * ------------------------------------------------------------------ */
+
+@theme {
+  --color-base: #0c0a09;
+  --color-surface: #17120e;
+  --color-surface-2: #221a14;
+  --color-line: rgba(245, 236, 223, 0.14);
+  --color-cream: #f6ede0;
+  --color-muted: #b7a891;
+  --color-ember: #ff5c1a;
+  --color-ember-bright: #ff8142;
+  --color-gold: #f5b53d;
+
+  --font-display: "Archivo Black", "Arial Black", "Helvetica Neue", system-ui,
+    sans-serif;
+  --font-body: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-base);
+  color: var(--color-cream);
+  font-family: var(--font-body);
+  min-height: 100dvh;
+}
+
+/* Full-bleed rooftop background from /public/bg.png */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: url("/bg.png") center / cover no-repeat;
+  transition: opacity 0.45s ease;
+}
+/* When the video backdrop is on, fade the still image out from under it. */
+body[data-video="on"]::before {
+  opacity: 0;
+}
+
+/* Elements that should get out of the way while the video plays as the
+   backdrop (the rooftop hero copy, the "cued up" card). */
+.hide-on-video {
+  transition: opacity 0.4s ease;
+}
+body[data-video="on"] .hide-on-video {
+  opacity: 0;
+  pointer-events: none;
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    180deg,
+    rgba(12, 10, 9, 0.62) 0%,
+    rgba(12, 10, 9, 0.78) 42%,
+    rgba(12, 10, 9, 0.95) 100%
+  );
+}
+
+/* ---------- YouTube as the page backdrop ---------- *
+ * The player container is ALWAYS mounted (so audio never stops). In backdrop
+ * mode it sits full-bleed behind the content, scaled to "cover" exactly like
+ * bg.png; when off it collapses to a 1px sliver offscreen and keeps playing.  */
+#dhh-yt-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+  background: #000;
+}
+#dhh-yt-bg.is-hidden {
+  inset: auto 4px 4px auto;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  background: transparent;
+}
+#dhh-yt-bg iframe,
+#dhh-yt-bg #dhh-yt-host {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 56.25vw; /* 16:9 from width */
+  min-width: 177.78vh; /* 16:9 from height */
+  min-height: 100vh;
+  transform: translate(-50%, -50%);
+  border: 0;
+}
+#dhh-yt-bg.is-hidden iframe,
+#dhh-yt-bg.is-hidden #dhh-yt-host {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  transform: none;
+}
+
+::selection {
+  background: var(--color-ember);
+  color: #120a05;
+}
+
+.display {
+  font-family: var(--font-display);
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+}
+
+.glass {
+  background: color-mix(in srgb, var(--color-surface) 78%, transparent);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--color-line);
+}
+
+.neon {
+  color: var(--color-ember);
+  text-shadow: 0 0 8px rgba(255, 92, 26, 0.55), 0 0 22px rgba(255, 92, 26, 0.35);
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spin-slow {
+  animation: spin-slow 3.4s linear infinite;
+}
+
+@keyframes eq-bar {
+  0%,
+  100% {
+    transform: scaleY(0.3);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
